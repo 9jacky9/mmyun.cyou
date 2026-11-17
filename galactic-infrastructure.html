@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>新装电脑联网：台式机无线网卡与网线怎么选 - 妙妙云观测站</title>
-<meta name="description" content="新买的台式机没有无线功能怎么办？比较网线直连、USB 无线网卡与 PCIe 无线网卡的特点、选购要点与安装注意事项。">
+<meta charset="utf-8"/>
+<title>新电脑网速只有百兆怎么办：网卡、网线和路由端口逐段排查</title>
+<meta content="用Windows网卡状态与单变量替换定位百兆瓶颈，区分局域网协商速率、宽带套餐和真实下载速度。" name="description"/>
 <style>
 
     :root {
@@ -98,42 +99,46 @@
 </head>
 <body>
 <header>
-    <a href="index.html" class="logo-container">
-      <svg viewBox="0 0 100 100" class="logo-svg" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4" />
-        <circle cx="50" cy="50" r="20" fill="var(--accent)" opacity="0.8" />
-        <path d="M30,60 Q50,20 70,60" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" />
-        <circle cx="30" cy="60" r="4" fill="#fff" />
-        <circle cx="50" cy="35" r="2" fill="#fff" />
-        <circle cx="70" cy="60" r="4" fill="#fff" />
-      </svg>
+<a class="logo-container" href="index.html">
+<svg class="logo-svg" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" fill="none" r="40" stroke="var(--accent)" stroke-dasharray="4 4" stroke-width="2"></circle>
+<circle cx="50" cy="50" fill="var(--accent)" opacity="0.8" r="20"></circle>
+<path d="M30,60 Q50,20 70,60" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4"></path>
+<circle cx="30" cy="60" fill="#fff" r="4"></circle>
+<circle cx="50" cy="35" fill="#fff" r="2"></circle>
+<circle cx="70" cy="60" fill="#fff" r="4"></circle>
+</svg>
       妙妙云
     </a>
-    <nav class="nav-links">
-      <a href="index.html#features">光速性能</a>
-      <a href="index.html#streaming">流媒体加速</a>
-      <a href="index.html#pricing">专属方案</a>
-      <a href="index.html#faq">常见问题</a>
-      <a href="insights.html">星际观测站</a>
-      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" class="nav-cta" rel="nofollow" target="_blank">立即连接</a>
-    </nav>
-  </header>
-  <main class="container">
-
-<div class="container">
-<h1>新装电脑联网：台式机无线网卡与网线怎么选</h1>
-<h2>一、首选网线</h2>
-<p>有线连接最稳定、延迟最低，也不受干扰。如果电脑离路由器不远，可以走明线或使用线槽收纳。</p>
-<h2>二、USB 无线网卡</h2>
-<p>即插即用，价格便宜，适合临时使用；但体积小、天线性能有限，速度和稳定性一般。</p>
-<h2>三、PCIe 无线网卡</h2>
-<p>装在主板插槽里，带外接天线，信号更好，适合长期使用，需要打开机箱安装，并安装驱动。</p>
-<h2>四、选购要点</h2>
-<ul><li>支持的无线标准（如 Wi-Fi 5 或 Wi-Fi 6）。</li><li>是否双频，是否支持蓝牙。</li><li>驱动与系统是否兼容。</li></ul>
-<h2>五、安装后检查</h2>
-<p>安装驱动并更新，测速确认效果；天线尽量放在机箱外较高的位置。</p>
- </div>
-
-  </main>
+<nav class="nav-links">
+<a href="index.html#features">光速性能</a>
+<a href="index.html#streaming">流媒体加速</a>
+<a href="index.html#pricing">专属方案</a>
+<a href="index.html#faq">常见问题</a>
+<a href="insights.html">星际观测站</a>
+<a class="nav-cta" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" rel="nofollow" target="_blank">立即连接</a>
+</nav>
+</header>
+<main class="container">
+<div class="container"><h1>新电脑网速只有百兆怎么办：网卡、网线和路由端口逐段排查</h1><div data-swc-article-body="2026-11-16"><p>办了千兆宽带，新装电脑却总在百兆附近，先不要购买加速服务。数据从电脑到互联网至少经过网卡、网线、交换或路由端口、宽带接入几个环节，其中一段协商成百兆就可能成为上限。本文针对有线连接的个人Windows电脑，用能复现的顺序找出限制位置。</p>
+<h2>先分清显示数字属于哪一层</h2>
+<p>网卡连接速率表示本机与相邻设备协商的链路能力；宽带套餐表示接入服务约定；下载器里的速度则受到服务器、协议和文件状态影响。三个数字不能直接互相替代。兆比特与兆字节也不同，下载显示每秒十几兆字节，不一定就是只有十几兆宽带。</p>
+<p>画一条简图：电脑接扩展坞，扩展坞接墙面插座，墙内线到路由器。把每个可见接口的型号写出来。若扩展坞本来只有百兆网口，换再贵的外网套餐也不会提高这段上限；若设备标称千兆，则继续检查实际协商状态。</p>
+<h2>第一轮：直接读取当前连接</h2>
+<ol><li>打开Windows设置，进入网络和Internet，再进入以太网，确认正在查看有线连接而不是旁边的无线网络。</li><li>打开PowerShell，运行<code>Get-NetAdapter</code>，找到状态为Up且对应实际网卡的行，查看LinkSpeed。</li><li>把网卡名称和速率记下来。虚拟网卡、未连接接口以及客户端创建的设备不要混入本次硬件判断。</li></ol>
+<p>该命令用于读取状态，不需要先执行网络重置。如果有线接口显示百兆，优先调查网线与端口；若已经是千兆，下载仍慢，则不能继续把“协商百兆”当成结论。系统页面的文字随版本变化时，以同一块实际网卡的状态为准。</p>
+<h2>第二轮：用最短线路做交叉验证</h2>
+<ol><li>准备一条已知能正常工作的合适网线，将电脑直接连接路由器的已知千兆局域网端口，暂时绕过墙面插座和中间交换机。</li><li>连接稳定后重新读取LinkSpeed。若恢复千兆，再逐个放回中间环节，找出哪一步使协商下降。</li><li>若仍是百兆，换另一个确认支持千兆的端口；有备用电脑时，用同一线缆连接备用机，比较现象是否跟随电脑移动。</li></ol>
+<p>比如直连正常，经过墙线后降为百兆，调查重点是墙线及两端接线，而不是重装系统。若两台电脑在同一端口都降速，检查端口能力或线路。没有备用设备也可以完成前两步，只是结论应写成疑似位置，不强行认定某件硬件损坏。</p>
+<h2>别靠强制速率掩盖协商问题</h2>
+<p>网卡高级属性可能提供速率与双工选项，普通使用应先保留自动协商。随意强制千兆不保证物理链路支持，反而可能断网。若此前改过，先记下原值，再按网卡厂商说明恢复。驱动从电脑或网卡厂商获取，避免安装来源不明的驱动合集。</p>
+<p>对于USB网卡，还要检查所接接口、扩展坞供电和型号说明。把网卡从拥挤的扩展坞换到电脑合适接口，可作为一次单独对照；不要同时换线、换驱动和改路由设置，否则无法知道哪项起作用。设备发热或断续掉线也应单独记录。</p>
+<h2>链路正常以后，再测实际传输</h2>
+<p>先暂停其他设备的大文件上传下载，用同一个可信测试服务测几次，观察结果是否稳定，再测试真实下载任务。服务器限速、磁盘写入和浏览器处理都可能影响下载。如果随后要比较跨境网络服务，可将<a href="https://dajichang.mom/">宽带与机场选择</a>分开考虑：先保证家中接入正常，再按真实用途阅读服务条件，避免把网线故障变成重复付费。</p>
+<p>如果有自己的局域网文件服务器，可以用一份较大的非敏感文件做读取测试，但结果同时受硬盘和服务器限制。不要拿大量小文件的复制时间推算带宽，它们包含目录遍历和频繁请求开销。复制中也不要覆盖唯一原件，使用专门的测试副本。</p>
+<p>还可以给每个组合编号：原线原端口、备用线原端口、备用线另一端口。每次只变一项，记录协商结果及是否断线。这样即使稍后联系维修，也能准确说明哪个组合成功。如果接头松动或明显损坏，先停用该段并更换合适成品线，不靠反复晃动接头维持临时连接。</p><h2>什么时候联系宽带或设备支持</h2>
+<p>电脑到路由器始终协商千兆，多台设备在安静网络下都出现明显低速，才值得继续向接入服务商提交时间、测试方式和拓扑。只有单台设备异常，则先处理本机路径。把已经绕过的设备和成功的组合写清楚，能减少重复要求重启的来回。</p>
+<p>最终保留一张简图和几组结果即可，不需要修改每个高级参数。找到瓶颈后重新接回日常环境，再确认休眠唤醒和重新插线仍保持正常协商。这样得到的是可复现的修复，而不是偶然出现一次漂亮的测速数字。</p><p>若端口附近标着不同速率，先按说明书确认对应功能。上联口与普通局域网口可能承担不同用途，不能仅看插孔形状相同就随意互换。</p></div></div>
+</main>
 </body>
 </html>

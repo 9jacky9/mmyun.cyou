@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>重装系统前的网络准备：驱动、离线包与备份 - 妙妙云观测站</title>
-<meta name="description" content="重装系统最怕装完没有网络。整理重装前的准备：备份网卡驱动、准备离线驱动包、保存配置与账号信息，以及装完后的联网顺序。">
+<meta charset="utf-8"/>
+<title>一上传文件全家就卡：用负载对照识别缓冲膨胀与合理限速</title>
+<meta content="从网关和外网延迟对照入手，判断满载卡顿发生位置，再以单方向限速和路由队列管理改善互动体验。" name="description"/>
 <style>
 
     :root {
@@ -98,42 +99,47 @@
 </head>
 <body>
 <header>
-    <a href="index.html" class="logo-container">
-      <svg viewBox="0 0 100 100" class="logo-svg" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4" />
-        <circle cx="50" cy="50" r="20" fill="var(--accent)" opacity="0.8" />
-        <path d="M30,60 Q50,20 70,60" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" />
-        <circle cx="30" cy="60" r="4" fill="#fff" />
-        <circle cx="50" cy="35" r="2" fill="#fff" />
-        <circle cx="70" cy="60" r="4" fill="#fff" />
-      </svg>
+<a class="logo-container" href="index.html">
+<svg class="logo-svg" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" fill="none" r="40" stroke="var(--accent)" stroke-dasharray="4 4" stroke-width="2"></circle>
+<circle cx="50" cy="50" fill="var(--accent)" opacity="0.8" r="20"></circle>
+<path d="M30,60 Q50,20 70,60" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4"></path>
+<circle cx="30" cy="60" fill="#fff" r="4"></circle>
+<circle cx="50" cy="35" fill="#fff" r="2"></circle>
+<circle cx="70" cy="60" fill="#fff" r="4"></circle>
+</svg>
       妙妙云
     </a>
-    <nav class="nav-links">
-      <a href="index.html#features">光速性能</a>
-      <a href="index.html#streaming">流媒体加速</a>
-      <a href="index.html#pricing">专属方案</a>
-      <a href="index.html#faq">常见问题</a>
-      <a href="insights.html">星际观测站</a>
-      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" class="nav-cta" rel="nofollow" target="_blank">立即连接</a>
-    </nav>
-  </header>
-  <main class="container">
-
-<div class="container">
-<h1>重装系统前的网络准备：驱动、离线包与备份</h1>
-<h2>一、最怕的情况</h2>
-<p>重装后没有网卡驱动，就上不了网，也就无法下载驱动，进退两难。</p>
-<h2>二、重装前的准备</h2>
-<ul><li>在官网下载网卡驱动并存放在 U 盘里。</li><li>备份重要文件、浏览器书签与软件配置。</li><li>记录软件的授权信息与账号。</li></ul>
-<h2>三、客户端与配置</h2>
-<p>导出代理客户端的配置并备份，同时下载安装包。重装后先装驱动，再装客户端，最后导入配置。</p>
-<h2>四、联网顺序</h2>
-<p>先确保有线或热点能联网，再更新系统与驱动，最后安装常用软件，并重新登录账号。</p>
-<h2>五、验证</h2>
-<p>安装后测试网络、时间与同步是否正常，确认备份文件完整。</p>
- </div>
-
-  </main>
+<nav class="nav-links">
+<a href="index.html#features">光速性能</a>
+<a href="index.html#streaming">流媒体加速</a>
+<a href="index.html#pricing">专属方案</a>
+<a href="index.html#faq">常见问题</a>
+<a href="insights.html">星际观测站</a>
+<a class="nav-cta" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" rel="nofollow" target="_blank">立即连接</a>
+</nav>
+</header>
+<main class="container">
+<div class="container"><h1>一上传文件全家就卡：用负载对照识别缓冲膨胀与合理限速</h1><div data-swc-article-body="2026-11-16"><p>视频会议平时正常，一有人备份照片就声音断续，常见原因不是下载带宽太小，而是上传占满后排队时间变长。路由器与接入设备的缓冲可以暂存数据，但排队过多会让短小的交互请求一起等待。下面用一次家庭可执行的对照，判断是否值得调整队列管理。</p>
+<h2>准备一个能够重复的负载</h2>
+<p>找一份自己允许上传的普通文件，选平时常用的云盘，安排家人暂时停止其他大流量操作。电脑尽量用有线接路由器，避免无线信号变化干扰判断。不要使用公司重要文件，也不要在会议正在进行时开展满载测试。</p>
+<p>先用纸记下测试设备、宽带接入、路由型号和时间。目的是比较同一环境的空闲与负载状态，不是寻找全网统一的合格数字。网络本来就掉线时，应先处理连接故障；持续丢连接和排队变长需要不同的解决方式。</p>
+<h2>第一组操作：同时看近端和远端</h2>
+<ol><li>在Windows命令提示符运行<code>ipconfig</code>，找到当前连接的默认网关地址。</li><li>新开一个窗口，输入<code>ping -t</code>加空格和该网关地址；另开窗口对你平时可达且允许测试的外网目标执行同样命令。</li><li>先观察空闲状态，再开始文件上传，比较两个窗口的延迟变化；完成后按Ctrl+C结束并查看统计。</li></ol>
+<p>有些设备或目标限制回应，因此不回应本身不能证明网络中断。优先使用平时有稳定回应的目标，并把网页或通话表现作为补充。不要把对某个远端的响应时间当成全部网站的速度，也不要用一次偶然尖峰判断整条线路。</p>
+<h2>按变化位置选择下一步</h2>
+<p>上传时网关响应也明显变差，先调查本地无线竞争、路由负载或连接问题；有线重测能帮助缩小范围。网关稳定而外网排队明显增加，更值得调查出口占满。两者都稳定但某个应用卡顿，则继续检查该应用的服务器或设备资源。</p>
+<p>举例说，手机备份开始后电脑会议断续，暂停备份马上恢复，这构成关联，但还不足以确定是路由器缺陷。继续给备份设置适度上传限制，再重复相同任务。如果互动恢复而文件仍能持续上传，就取得了可用于后续配置的证据。</p>
+<h2>先用应用限速验证，不急着换设备</h2>
+<ol><li>在上传应用支持的带宽设置里，先记下原值，再设置低于刚才稳定上传能力的限额。</li><li>重做上传与互动任务，观察延迟是否改善，同时看上传是否持续推进。</li><li>小幅调整限额，找到能兼顾完成时间与互动的范围；记录该值只适用于当前接入环境。</li></ol>
+<p>界面可能使用每秒字节或每秒比特，填写前先核对单位。只限制上传，不要顺手把下载、连接数和所有设备优先级一起改掉。这一步的价值是用可撤销的变化验证假设，而不是直接追求最复杂的配置。</p>
+<h2>需要路由统一管理时再考虑SQM</h2>
+<p>多台设备都可能占满出口，逐台限速不方便，可以考虑路由器支持的智能队列管理。OpenWrt的SQM用于缓解缓冲膨胀，但前提是设备和软件支持，并且能承受相应处理负载。它不是额外购买的带宽，也不能保证所有无线竞争都消失。</p>
+<p>配置之前保存路由器现有设置，确认实际承载外网的接口和上下行单位。整形值通常需要略低于可持续速率，使排队发生在可管理位置；具体幅度要根据线路波动逐步测试。移动网络速率变化大，固定值可能在不同时间产生不同效果。</p>
+<p>不要直接复制别人的高级参数。先按设备对应版本的官方说明启用基本方案，再观察上传、下载和双向负载。若吞吐明显下降且处理器负载高，可能是硬件能力限制；若完全没有变化，则检查选错接口或配置未生效的可能性。</p>
+<p>例如工作日傍晚上传限额有效，周末仍会卡顿，就再做一次空闲和负载对照，检查是否多了其他上传源。如果只有特定跨境服务的路径长期不合适，才把<a href="https://dajichang.mom/">低延迟机场选择</a>作为后续比较事项，查看线路与服务条件；选择新服务不能替代本地队列排查，也不能保证目标应用的性能。</p><h2>验收要看家庭真实任务</h2>
+<p>最终让一台设备上传，另一台进行正常通话或交互操作，再与原状态比较。记录声音是否连续、网页是否及时回应、备份是否仍能完成。牺牲少量峰值换来稳定响应，对一些家庭有意义，但没有必要把所有设备长期压到很低速度。</p>
+<p>如果卡顿只发生在远端服务故障或某个时段的外部拥堵，家庭限速可能帮助有限。保留空闲、满载、限速后三组结果，后续联系宽带或路由支持时就有清楚的条件。停止无效改动并恢复原值，同样是一次有效排查的结果。</p><p>测试结束后取消临时上传任务，确认没有留在后台自动重试，避免把测试负载误当成日常网络故障。</p></div></div>
+</main>
 </body>
 </html>
